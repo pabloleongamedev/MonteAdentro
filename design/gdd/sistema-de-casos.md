@@ -2,7 +2,7 @@
 
 > **Status**: In Design
 > **Author**: user + narrative-writer + game-designer
-> **Last Updated**: 2026-07-15
+> **Last Updated**: 2026-07-18
 > **Implements Pillar**: Los 5 pilares (es el sistema que los hace jugables en conjunto)
 
 ## Overview
@@ -36,11 +36,11 @@ Pero esa interpretación no es el final: es lo que llevas contigo al actuar. La 
 
 4. **Cómo se obtiene evidencia.** Explorando el hub, hablando con NPCs, y revisitando lugares en momentos distintos del Reloj Real — varias piezas solo existen en una franja horaria específica. No hay lista de tareas: la evidencia se acumula libremente y el jugador decide cuándo "tiene suficiente".
 
-5. **Condición para confrontar.** El jugador puede iniciar la Confrontación de Ingenio **en cualquier momento**, incluso con evidencia incompleta o nula. El juego nunca bloquea la confrontación tras un umbral de "evidencia suficiente" — eso convertiría el acto de interpretar en un trámite de checklist.
+5. **Condición para confrontar.** El jugador puede buscar y confrontar a la entidad de un caso **en cualquier momento** — con evidencia incompleta o nula, sin que el juego bloquee esa decisión tras un umbral de "evidencia suficiente" (eso convertiría el acto de interpretar en un trámite de checklist). No existe una acción abstracta de "Confrontar": el jugador va al lugar correspondiente e intenta el contacto con la entidad, y la Confrontación **solo comienza** si esta puede manifestarse en ese momento, según las reglas del Reloj Real (ver Edge Cases). Si no puede manifestarse, el intento simplemente no encuentra a nadie — no hay transición de estado ni resultado.
 
-6. **Confrontar antes de tiempo.** No existe un estado de "fallo por falta de datos" distinto de una hipótesis incorrecta: presentarse con poca comprensión se trata igual que una hipótesis mal formada — el encuentro se transforma según las reglas de lo que en verdad estaba activo. No es un error especial; es arriesgarse con menos comprensión de la que se pudo tener.
+6. **Confrontar antes de tiempo.** No existe un estado de "fallo por falta de datos" distinto de una hipótesis incorrecta: presentarse con poca comprensión se trata igual que una hipótesis mal formada — el encuentro se transforma según las reglas de lo que en verdad estaba activo. No es un error especial; es arriesgarse con menos comprensión de la que se pudo tener. (Esto es distinto de intentar el contacto cuando la entidad no puede manifestarse — Core Rule 5 —, donde el encuentro ni siquiera llega a ocurrir.)
 
-7. **Comprometerse con una interpretación.** Cerrar la investigación y confrontar declara implícitamente cuál candidato el jugador cree real — pero esa declaración no es un menú aparte: ocurre a través de las decisiones tomadas durante la confrontación misma (qué prepara, cómo se aproxima, qué dice). No hay una "respuesta final" como dato separado.
+7. **Comprometerse con una interpretación.** El Sistema de Casos no exige declarar una interpretación *antes* de confrontar — la interpretación emerge de las decisiones que el jugador toma *durante* la Confrontación misma (qué prepara, cómo se aproxima, qué dice, qué ofrece). No hay una "respuesta final" como paso o pantalla separada: comprometerse con una lectura del caso es un efecto de actuar, no una entrada previa a la acción. Si el jugador llega con mucha evidencia, sus acciones estarán respaldadas por una interpretación sólida; si llega con poca o ninguna, igual puede actuar, pero lo hace prácticamente a ciegas (Core Rule 6). El mecanismo concreto mediante el cual una acción de Confrontación comunica una interpretación (citar una anotación del Cuaderno, elegir una réplica de diálogo, un gesto ritual propio de la entidad) es una decisión del Sistema de Confrontación de Ingenio — puede variar de una entidad a otra — no una regla universal fijada en este documento.
 
 8. **Cierre de un caso.** Se cierra cuando la Confrontación produce una rama de resultado terminal. El cierre siempre escribe al menos un cambio en el Estado del Mundo — nunca hay cierre neutro sin huella. Puede seguir generando evidencia y consecuencias después de cerrado, pero como semilla de un caso *distinto*, nunca como continuación del mismo.
 
@@ -51,11 +51,13 @@ Un caso es simple en su ciclo de vida — la complejidad vive en la evidencia y 
 | Estado | Descripción | Entra por | Sale por |
 | ---- | ---- | ---- | ---- |
 | **Latente** | El fenómeno existe en el mundo (contenido diseñado: un lugar, un NPC con algo que contar) pero el jugador no lo ha tocado todavía | Definido en el diseño del caso | El jugador entra en contacto con su primera señal → **Activo** |
-| **Activo** | El jugador conoce el fenómeno; puede explorar, hablar y recolectar evidencia libremente, en cualquier orden | Primer contacto (Core Rule 1) | El jugador decide iniciar la Confrontación de Ingenio, con la evidencia que tenga → **En Confrontación** |
+| **Activo** | El jugador conoce el fenómeno; puede explorar, hablar y recolectar evidencia libremente, en cualquier orden | Primer contacto (Core Rule 1) | El jugador va al lugar correspondiente e intenta el contacto con la entidad, con la evidencia que tenga, **y la entidad puede manifestarse en ese momento** (Reloj Real) → **En Confrontación** |
 | **En Confrontación** | El encuentro de ingenio está en curso (gobernado por el Sistema de Confrontación de Ingenio, no por este sistema) | El jugador se compromete a confrontar (Core Rule 5) | Se alcanza una rama de resultado terminal → **Resuelto** |
 | **Resuelto** | El caso terminó; al menos un cambio quedó escrito en el Estado del Mundo (Core Rule 8) | Rama terminal de la Confrontación | Estado final — no hay transición de salida. Puede sembrar un caso *nuevo* (Latente), nunca reabrirse a sí mismo |
 
 Nota deliberada: **no existe un estado de "fallo por evidencia insuficiente"**. Confrontar con poca comprensión (Core Rule 6) sigue siendo una transición normal Activo → En Confrontación; la consecuencia de haber ido mal preparado se resuelve dentro de la Confrontación misma, no como un estado distinto del caso.
+
+Nota deliberada 2: **tampoco existe una transición fallida por intentar el contacto en el momento equivocado**. Si la entidad no puede manifestarse (Core Rule 5), no ocurre ninguna Confrontación — el caso simplemente permanece Activo, sin marca de intento fallido y sin penalización.
 
 ### Interactions with Other Systems
 
@@ -65,7 +67,7 @@ Todas estas dependencias son **provisionales** — ninguno de los sistemas relac
 | ---- | ---- | ---- |
 | **Sistema de Entidades Míticas** | Upstream | Provee el conocimiento disponible sobre los mitos de la región (reglas, dominios, patrones de comportamiento, señales posibles). El Sistema de Casos usa ese conocimiento como el trasfondo de interpretaciones que el jugador *ya trae consigo* al investigar — nunca como una lista de "estas son las N hipótesis válidas de este caso". La hipótesis nace del conocimiento acumulado del jugador (por tradición oral, el Cuaderno, lo que le enseñó el pueblo) enfrentado a las pistas concretas del caso, no de una lista predefinida por el sistema. |
 | **Sistema de Testimonios/Diálogo** | Upstream | Fuente primaria de evidencia tipo *Testimonio*. El Sistema de Casos no define cómo funciona una conversación — consume fragmentos ya etiquetados por NPC y por sesgo, para que el jugador pueda evaluar la fuente (Pilar 5). |
-| **Reloj Real** | Upstream | Determina qué evidencia (*Patrón de evento*, *Rastro físico*) está disponible en cada franja horaria, y cuándo ciertos lugares o testimonios son accesibles. |
+| **Reloj Real** | Upstream | Determina qué evidencia (*Patrón de evento*, *Rastro físico*) está disponible en cada franja horaria, cuándo ciertos lugares o testimonios son accesibles, y cuándo la entidad de un caso puede manifestarse ante el jugador — condición de la que depende si un intento de contacto se convierte en una Confrontación real (Core Rule 5). |
 | **Sistema de Estado del Mundo** | Upstream y downstream | El Sistema de Casos **lee** el estado del mundo al nacer un caso (consecuencias previas que lo condicionan) y **escribe** al menos un cambio al cerrarse (Core Rule 8). |
 | **Sistema de Confrontación de Ingenio** | Downstream | El Sistema de Casos entrega el estado de la investigación (evidencia recolectada, candidatos vivos) al iniciar la confrontación; recibe de vuelta una rama de resultado terminal que usa para cerrar el caso. |
 | **Cuaderno del Investigador** | Downstream | Lee los datos de evidencia y candidatos activos para presentarlos al jugador. El Sistema de Casos no dicta cómo se visualiza — solo expone los datos. |
@@ -76,7 +78,11 @@ Este sistema no expone fórmulas numéricas de runtime por diseño — la Core R
 
 En su lugar, esta sección documenta un **invariante de diseño verificable durante la autoría de cada caso** — no una regla que el sistema valide en runtime, ni nada que el jugador perciba como número.
 
-**Invariante de no-determinación única** (sirve a los Pilares 2 y 5): para cada candidato viable de un caso, debe existir al menos una evidencia que lo sostenga y al menos una que lo socave. Ningún candidato puede quedar con soporte total y cero contradicción (se vuelve "la respuesta obvia", violando el Pilar 5), ni con cero soporte (se vuelve descartable trivialmente, matando el "error como contenido" del Pilar 2). Esto se verifica caso por caso durante su diseño, no en el motor.
+**Invariante de interpretaciones defendibles** (antes: "invariante de no-determinación única" — sirve a los Pilares 2 y 5, y protege directamente la Player Fantasy declarada en este documento): toda interpretación que un caso pretenda sostener como candidato viable debe poder ser defendida por un jugador razonable a partir de la evidencia disponible, y toda interpretación — incluida la correcta — debe contener al menos un elemento que permita cuestionarla. Ninguna interpretación puede resultar trivialmente inevitable (se vuelve "la respuesta obvia", violando el Pilar 5) ni trivialmente descartable antes de la Confrontación (mata el "error como contenido" del Pilar 2). La idea central del invariante anterior se mantiene — ningún candidato puede ser obvio ni descartable — pero el criterio de verificación cambia de un conteo de evidencias a un juicio de defendibilidad.
+
+A diferencia de un conteo de piezas de "apoyo" y "contradicción", este invariante no se satisface contando — se satisface preguntando, durante la autoría: ¿un jugador razonable podría construir y defender esta lectura con lo que el caso ofrece? ¿Y también podría dudar de ella? Esto es deliberado: Monte Adentro no trata de balancear evidencia numéricamente, trata de que cada interpretación exista en la cabeza del jugador como una lectura sostenible, no como una entrada en una tabla de puntajes. Los "candidatos viables" sobre los que aplica este invariante son el conjunto que el caso documenta en su autoría (ver Dependencies § Sistema de Entidades Míticas) — no varía según lo que un jugador específico sepa; lo que varía por jugador es cuáles de esos candidatos activa como sospecha real (Core Rule 2, nota de consistencia).
+
+Esto se verifica caso por caso durante su diseño y revisión, no en el motor — es, por naturaleza, un criterio de juicio de diseño, no un chequeo automatizable.
 
 *Nota de coherencia con `/design-review`*: esta sección se considera completa, no pendiente — la ausencia de fórmulas numéricas es una decisión de diseño documentada, no un vacío. Las guías de densidad de evidencia (cuánta, de qué familias) viven en **Tuning Knobs**, no aquí, porque son parámetros ajustables por caso, no una propiedad universal del sistema.
 
@@ -86,13 +92,15 @@ En su lugar, esta sección documenta un **invariante de diseño verificable dura
 
 - **Si** el jugador confronta con cero evidencia recolectada: **entonces** se trata como la hipótesis menos informada posible — el encuentro procede y se transforma según cuál candidato sea realmente el activo, igual que cualquier otro intento mal informado (Core Rule 6). No existe un estado separado de "intento a ciegas".
 
+- **Si** el jugador va al lugar correspondiente e intenta contactar a la entidad de un caso Activo, pero esta no puede manifestarse en ese momento (p. ej., fuera de la ventana del Reloj Real que le corresponde): **entonces** no ocurre ninguna Confrontación — no hay transición de estado, no hay resultado, no hay consecuencia narrativa de fallo. El jugador simplemente no encontró a quien buscaba y puede volver a intentarlo en otro momento sin penalización. Esto es distinto de confrontar con poca o ninguna evidencia (arriba), donde el contacto sí ocurre pero está mal preparado.
+
 - **Si** una misma pieza de evidencia es relevante para más de un caso Activo simultáneamente: **entonces** se registra como evidencia válida para todos los casos a los que aplica — no hay restricción de "una pista, un caso". Refuerza la coherencia del mundo: un mismo rumor puede alimentar dos sospechas distintas.
 
 - **Si** el jugador recolecta evidencia nueva para un caso ya Resuelto: **entonces** esa evidencia no tiene efecto sobre el caso cerrado — solo puede convertirse en evidencia de un caso *nuevo* si el diseño de contenido la reutiliza explícitamente con ese propósito (Core Rule 8: un caso cerrado nunca se reabre a sí mismo).
 
 - **Si** un caso es una reaparición de una entidad ya confrontada antes (ver notas de reaparición en las fichas de entidad): **entonces** el Sistema de Casos no reduce ni elimina candidatos de confusión por el hecho de que el jugador "ya conoce" esa entidad — el conocimiento previo puede ayudarlo o desorientarlo (por diseño), pero el sistema nunca marca automáticamente el candidato correcto como "ya sabido".
 
-- **Si** la evidencia de un caso deja a algún candidato sin ninguna contradicción restante (violando el invariante de no-determinación única de Formulas): **entonces** esto es un fallo de autoría, no un estado válido de runtime — el caso debe rediseñarse antes de aprobarse.
+- **Si** la evidencia de un caso deja a algún candidato como trivialmente inevitable o trivialmente descartable (violando el invariante de interpretaciones defendibles — antes "no-determinación única" — de Formulas): **entonces** esto es un fallo de autoría, no un estado válido de runtime — el caso debe rediseñarse antes de aprobarse.
 
 ## Dependencies
 
@@ -103,7 +111,7 @@ El detalle de qué datos fluyen ya vive en Detailed Design § Interactions with 
 | Sistema | Tipo | Por qué |
 | ---- | ---- | ---- |
 | Sistema de Entidades Míticas | **Hard** | Un caso necesita el conocimiento y las reglas del mito involucrado para que su evidencia y su confrontación tengan significado. |
-| Reloj Real | **Hard** | Core Rule 4 ata directamente la disponibilidad de evidencia a la hora — sin reloj, la mitad de las Core Rules dejan de tener sentido. |
+| Reloj Real | **Hard** | Core Rule 4 ata directamente la disponibilidad de evidencia a la hora, y Core Rule 5 ata la manifestación misma de la entidad al Reloj Real — sin reloj, la mitad de las Core Rules dejan de tener sentido. |
 | Sistema de Estado del Mundo | **Hard** | Core Rule 8 exige escribir al menos un cambio al cerrar un caso — sin este sistema, el Pilar 4 (consecuencias permanentes) es imposible de cumplir. |
 | Sistema de Confrontación de Ingenio | **Hard** | Un caso no puede completar su ciclo de vida (Activo → Resuelto) sin recibir una rama de resultado terminal de este sistema. |
 | Sistema de Testimonios/Diálogo | **Soft** | La dependencia real del Sistema de Casos es hacia la existencia de evidencia, no hacia un tipo concreto. Los casos del MVP usan mucho testimonio por decisión de contenido, no por restricción del sistema — un caso futuro podría construirse principalmente con evidencia de observación/exploración sin este sistema. |
@@ -191,8 +199,8 @@ El detalle de qué datos fluyen ya vive en Detailed Design § Interactions with 
 La Confrontación **no se lanza desde un botón de UI**. Cualquier botón "Confrontar" que se active al alcanzar "evidencia suficiente" viola Core Rule 5; un botón meta persistente también rompería el marco al preguntar implícitamente "¿ya lo resolviste?".
 
 - Se inicia **diegéticamente, desde el mundo/ficción** — igual que cualquier conversación. Interactuar con un personaje relevante permite llevar el diálogo hacia la confrontación.
-- La opción de tensar el diálogo hacia la confrontación está **siempre disponible** al hablar con un NPC relevante, y su disponibilidad **nunca cambia según la cantidad de evidencia** — no hay chequeo de umbral, no hay estado "gris→activo". La decisión de confrontar es juicio propio del jugador.
-- La interpretación se declara **como acción, no como menú**: dentro de la confrontación, el Cuaderno se vuelve instrumento — seleccionar/citar una anotación *es* la acción que declara la lectura del jugador. No existe pantalla separada de "respuesta final".
+- La opción de tensar el diálogo hacia la confrontación está **siempre disponible** al hablar con un NPC relevante, y su disponibilidad **nunca cambia según la cantidad de evidencia** — no hay chequeo de umbral, no hay estado "gris→activo". La decisión de confrontar es juicio propio del jugador. (Que la entidad correspondiente efectivamente se manifieste cuando el jugador la busca es un eje aparte, gobernado por el Reloj Real, no por la cantidad de evidencia — ver Core Rule 5.)
+- La interpretación se declara **como acción, no como menú**: dentro de la Confrontación, actuar — preparar, aproximarse, elegir qué decir u ofrecer — *es* lo que declara la lectura del jugador; no hay un paso previo de "elegir tu hipótesis". El Cuaderno puede ser uno de los instrumentos de esa acción (citar una anotación), pero el mecanismo exacto de cómo se expresa el compromiso con una interpretación varía por entidad y lo define el Sistema de Confrontación de Ingenio — no es una mecánica única fijada aquí. No existe pantalla separada de "respuesta final".
 - El resultado nunca se comunica por color/icono — el NPC reacciona en ficción; un desenlace desfavorable se expresa como alteración material del cuaderno (página arrancada, tinta corrida), per Art Bible 3.3.
 
 ### 4. Flujos de UI clave (conceptuales, no layout)
@@ -203,13 +211,13 @@ La Confrontación **no se lanza desde un botón de UI**. Cualquier botón "Confr
 - **D. Selector/archivo de casos** — cambiar de caso activo; casos cerrados quedan archivados sin veredicto de "acierto".
 - **E. Feedback de evidencia nueva** — *requisito crítico*: idéntico para toda evidencia, sin importar su relevancia futura. Feedback uniforme = el juego nunca insinúa qué importa.
 - **F. Transición a Confrontación** — desde el diálogo en el mundo, sin botón meta.
-- **G. Confrontación: citar evidencia como acción** — el cuaderno como paleta de acciones; seleccionar entrada = presentarla = declarar interpretación.
+- **G. Confrontación: el Cuaderno como una posible herramienta de acción** — en las confrontaciones donde aplique, seleccionar una entrada del Cuaderno es una forma de presentar/declarar interpretación; el mecanismo exacto (y si el Cuaderno es la única vía) lo define el Sistema de Confrontación de Ingenio por entidad.
 - **H. Resultado de Confrontación** — expresado como alteración material del propio cuaderno, nunca iconografía de fracaso.
 
 ### Notas de handoff
 
 - `/ux-design`: este spec define QUÉ y CÓMO se organiza; falta layout, jerarquía visual del chrome híbrido, y componentes (UI Toolkit recomendado en Unity 6.3 para runtime UI).
-- `game-designer` + `narrative-writer`: el flujo G (citar evidencia como acción de diálogo en confrontación) toca mecánica de confrontación y escritura de reacciones NPC — conviene diseñarlo en conjunto con el GDD del Sistema de Confrontación de Ingenio.
+- `game-designer` + `narrative-writer`: el flujo G (cómo una acción de Confrontación comunica una interpretación — citar el Cuaderno es una posible vía, no la única) toca mecánica de confrontación y escritura de reacciones NPC — se diseña en conjunto con el GDD del Sistema de Confrontación de Ingenio, que define el mecanismo concreto por entidad.
 - La decisión sobre una posible capa de anotación libre del jugador (ej. hilos de cordel estilo pizarra de detective) se difiere — ver Open Questions.
 
 ## Acceptance Criteria
@@ -263,10 +271,10 @@ La Confrontación **no se lanza desde un botón de UI**. Cualquier botón "Confr
 **WHEN** el tester revisa toda la UI accesible durante ese caso (HUD, cuaderno, mapa, diálogos)
 **THEN** no existe ningún checklist u objetivo marcado ("habla con X", "visita Y") asociado a la obtención de evidencia
 
-**AC-09 — Invariante de no-determinación única** *(Formulas; también Edge Case 6)*
+**AC-09 — Invariante de interpretaciones defendibles** *(antes "invariante de no-determinación única"; Formulas; también Edge Case 6)*
 **GIVEN** el documento de autoría de un caso antes de su aprobación para implementación
-**WHEN** el tester recorre cada candidato viable listado
-**THEN** cada candidato tiene al menos una evidencia que lo sostiene y al menos una que lo socava; un candidato con soporte total sin contradicción, o con cero soporte, bloquea la aprobación del caso — esta verificación es de autoría, no requiere build jugable
+**WHEN** un revisor de diseño evalúa cada candidato viable listado, preguntando si un jugador razonable podría defenderlo y también podría dudar de él a partir de la evidencia documentada
+**THEN** ningún candidato resulta trivialmente inevitable ni trivialmente descartable; un candidato que falle cualquiera de las dos condiciones bloquea la aprobación del caso — esta es una verificación de criterio de diseño realizada en revisión de autoría, no un conteo automatizable ni un chequeo de runtime
 
 **AC-10 — Una evidencia válida para 2+ casos simultáneos** *(Edge Case 3)*
 **GIVEN** una pieza de evidencia marcada como relevante para 2+ casos Activos
@@ -297,8 +305,13 @@ La Confrontación **no se lanza desde un botón de UI**. Cualquier botón "Confr
 
 **AC-14 — Interpretación declarada por acción, no por menú** *(Core Rule 7)*
 **GIVEN** el jugador dentro de una Confrontación activa
-**WHEN** declara su interpretación
-**THEN** lo hace seleccionando/citando anotaciones del Cuaderno dentro del flujo de diálogo; no existe en ningún punto una pantalla separada de "respuesta final" o "elige tu veredicto"
+**WHEN** actúa — prepara, se aproxima, decide qué decir u ofrecer
+**THEN** esas acciones son en sí mismas su interpretación; no existe en ningún punto una pantalla separada de "respuesta final" o "elige tu veredicto", ni un paso obligatorio de declarar una hipótesis antes de que la Confrontación permita actuar. El mecanismo concreto mediante el cual una acción comunica una lectura (citar el Cuaderno, elegir una réplica, un gesto ritual propio de la entidad) lo define el Sistema de Confrontación de Ingenio por entidad — este AC solo verifica la ausencia de una declaración previa separada, no una mecánica específica
+
+**AC-25 — Intento sin la entidad presente no transiciona ni penaliza** *(Core Rule 5; Edge Cases)*
+**GIVEN** un caso Activo cuya entidad no puede manifestarse en el momento actual del Reloj Real
+**WHEN** el jugador va al lugar correspondiente e intenta el contacto de todas formas
+**THEN** no ocurre ninguna transición de estado (el caso permanece Activo), no se registra resultado ni consecuencia narrativa de fallo, y el jugador puede reintentar en otro momento sin penalización
 
 ### D. Prohibiciones de UI (Cuaderno)
 
@@ -324,14 +337,13 @@ La Confrontación **no se lanza desde un botón de UI**. Cualquier botón "Confr
 
 **AC-19 — Sin color correcto/incorrecto**
 **GIVEN** cualquier momento del juego, incluido después de resolver un caso
-**WHEN** el tester revisa la paleta del Cuaderno y del feedback de resultado de Confrontación
+**WHEN** el tester revisa la paleta del Cuaderno y del feedback de resultado de Confrontaci
 **THEN** ningún elemento usa un par cromático semántico de acierto/error; la paleta se limita a la definida en Art Bible 4.4
 
 **AC-20 — Feedback idéntico para toda evidencia nueva** *(Flujo E)*
 **GIVEN** dos piezas de evidencia distintas, una crítica para la resolución y otra irrelevante
 **WHEN** el jugador las obtiene por separado
 **THEN** el feedback inmediato de obtención (sonido, animación, tratamiento en Cuaderno) es exactamente idéntico entre ambas
-
 ### E. Prohibiciones Visual/Audio (mundo)
 
 **AC-21 — Sin señal exclusiva del mundo ante eventos de sistema**
@@ -346,4 +358,11 @@ La Confrontación **no se lanza desde un botón de UI**. Cualquier botón "Confr
 
 ## Open Questions
 
-[To be designed]
+| # | Pregunta | Contexto | Owner | Se resuelve en |
+| ---- | ---- | ---- | ---- | ---- |
+| 1 | ¿Cuál es el rol del Cuaderno del Investigador dentro de la experiencia — archivo de investigación, espacio de pensamiento personal, o híbrido? | La decisión sobre una capa de anotación libre (ej. hilos de cordel) es *consecuencia* de esta respuesta, no la pregunta en sí | `game-designer` | GDD del Sistema del Cuaderno del Investigador |
+| 2 | Valores concretos de los 6 Tuning Knobs (cantidad de evidencia, ritmo de evolución, ventanas horarias, etc.) para el caso tutorial vs. casos posteriores | Los knobs están definidos con su lógica de "muy alto/muy bajo", sin valores de referencia todavía | `game-designer` | Al diseñar los 5 casos concretos del MVP |
+| 3 | ¿Qué papel cumple el Reloj Real durante una confrontación? ¿Determina únicamente la disponibilidad física de la entidad en el mundo, o también modifica las reglas de la confrontación cuando esta ocurre? | Generalización de una tensión ya anotada en `design/entities/mohan.md` (timing crepúsculo/noche) — formulada como regla de sistema, no solo del caso del Mohán | `game-designer` | GDD del Reloj Real |
+| 4 | Cómo se implementa exactamente "citar una anotación del Cuaderno como acción" dentro del flujo de diálogo de la Confrontación | Se dejó a nivel conceptual en UI Requirements — falta el diseño concreto de la interacción | `game-designer` + `narrative-writer` | GDD del Sistema de Confrontación de Ingenio |
+| 5 | ¿Cómo evoluciona el conocimiento del protagonista entre casos? Resolver un caso sobre un mito, ¿solo aporta conocimiento al jugador real, o también cambia explícitamente la información disponible en el Cuaderno para casos futuros? | Afecta directamente cómo se diseña la reaparición de entidades (ver fichas de entidad, "Nota de reaparición") | `game-designer` + `narrative-writer` | Antes de diseñar el Caso 4/5 del MVP (los que reutilizan entidades) |
+| 6 | ¿Qué tipos de casos pueden evolucionar sin intervención del jugador, y bajo qué criterios? No todos los casos tienen por qué comportarse igual — algunos pueden deteriorarse con el tiempo, otros permanecer latentes durante días, otros evolucionar solo tras determinados eventos del mundo | Es una decisión de diseño de contenido, no solo de ritmo — refina Edge Case 1 | `game-designer` + `level-designer` | Al diseñar los 5 casos concretos del MVP |

@@ -22,7 +22,7 @@ Monte Adentro es un juego de deducción narrativa de un solo jugador: el bucle o
 | 3 | Sistema de Estado del Mundo + Guardado/Carga (inferred) | Persistence | Vertical Slice (versión mínima) | Not Started | — | — |
 | 4 | Sistema de Entidades Míticas | Core | Vertical Slice | Not Started | — | — |
 | 5 | Sistema de Testimonios / Diálogo (inferred) | Narrative | Vertical Slice | Not Started | — | Sistema de Exploración del Hub, Sistema de Estado del Mundo |
-| 6 | Sistema de Casos | Gameplay | Vertical Slice | Not Started | — | Sistema de Testimonios/Diálogo, Sistema de Estado del Mundo, Sistema de Entidades Míticas, Reloj Real |
+| 6 | Sistema de Casos | Gameplay | Vertical Slice | Designed (pendiente de revisión) | design/gdd/sistema-de-casos.md | Sistema de Testimonios/Diálogo, Sistema de Estado del Mundo, Sistema de Entidades Míticas, Reloj Real |
 | 7 | Sistema de Confrontación de Ingenio | Gameplay | Vertical Slice | Not Started | — | Sistema de Casos, Sistema de Entidades Míticas, Reloj Real, Sistema de Exploración del Hub |
 | 8 | Cuaderno del Investigador (inferred) | UI | Vertical Slice | Not Started | — | Sistema de Casos, Sistema de Estado del Mundo |
 | 9 | Sistema de Consecuencias Persistentes | Gameplay | MVP | Not Started | — | Sistema de Confrontación de Ingenio, Sistema de Estado del Mundo, Sistema de Entidades Míticas |
@@ -120,11 +120,11 @@ Monte Adentro es un juego de deducción narrativa de un solo jugador: el bucle o
 | Metric | Count |
 |--------|-------|
 | Total systems identified | 9 |
-| Design docs started | 0 |
+| Design docs started | 1 |
 | Design docs reviewed | 0 |
 | Design docs approved | 0 |
 | MVP systems designed | 0/9 |
-| Vertical Slice systems designed | 0/8 |
+| Vertical Slice systems designed | 1/8 |
 
 ---
 
