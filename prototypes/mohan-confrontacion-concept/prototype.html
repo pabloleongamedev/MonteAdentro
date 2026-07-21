@@ -1,7 +1,8 @@
 <!--
   PROTOTYPE - NOT FOR PRODUCTION
-  Question: ¿Diagnosticar una transgresión y construir una ofrenda de 3 partes
-  genera tensión de negociación real, o se siente como un quiz de opción múltiple?
+  Question: ¿Diagnosticar una transgresión y preparar un encuentro que combina
+  tributo + restitución + portador (sin exponerlos como slots de puzzle) genera
+  tensión de interpretación real, o se siente como un quiz de opción múltiple?
   Date: 2026-07-20
 -->
 <!doctype html>
@@ -25,6 +26,7 @@
   .resultado { background: #241f28; border-left: 3px solid #8a5a7a; padding: 16px; margin: 16px 0; font-style: italic; }
   .oculto { display: none; }
   .selected { border-color: #c98a3c !important; background: #3a3020 !important; }
+  button:disabled { cursor: not-allowed !important; }
   #log { background: #0f0d0a; color: #7a7263; font-size: 12px; padding: 12px; white-space: pre-wrap;
          font-family: monospace; margin-top: 30px; border: 1px dashed #4a4030; }
   .paso-etiqueta { color: #8a7e5f; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
@@ -37,53 +39,63 @@
 
 <div id="pantalla-pistas">
   <h2>Lo que sabes</h2>
-  <div class="pista"><b>Pescador viejo (Tomás):</b> "Desde hace dos semanas las redes vuelven vacías, pero no todas — la de mi compadre Efraín sigue llena todos los días. Eso no es la creciente, eso es cosa de alguien."</div>
-  <div class="pista"><b>Lavandera (Rosa):</b> "El trapiche de don Aurelio represó el brazo del río hace un mes, para su molienda. Desde entonces el agua baja distinta más abajo."</div>
-  <div class="pista"><b>Niño de la escuela:</b> "Yo vi una luz verde en el pozo hondo, ¡era un duende del agua, seguro!" <i>(exagera, como siempre)</i></div>
-  <div class="pista"><b>El corregidor:</b> "Aguas abajo bajó el caudal, arriba represaron. Física simple, no misterio. Que quiten esa represa y ya."</div>
-  <div class="pista"><b>Curandera del pueblo:</b> "Alguien le tiene rabia a esa familia, yo les huelo el maleficio." <i>(sin nada que lo respalde más allá de la desgracia misma)</i></div>
-  <div class="pista"><b>La piedra del vado:</b> sigue alimentada — tabaco y aguardiente frescos, alguien todavía cumple la costumbre.</div>
-  <p>Es el crepúsculo. Cruzas el vado hacia el pozo del Mohán.</p>
-  <button onclick="irA('aproximacion')">Cruzar y buscar al Mohán</button>
+  <div class="pista"><b>Tomás, pescador viejo:</b> "Desde hace dos semanas las redes vuelven vacías — pero no todas. La de mi compadre Efraín sigue llena, día tras día. Si fuera el río bajando parejo, nos tocaría igual a todos."</div>
+  <div class="pista"><b>El corregidor:</b> "Aguas abajo bajó el caudal justo cuando arriba represaron para el trapiche. Es física simple: menos agua entra, menos agua sale. No hace falta buscarle más explicación."</div>
+  <div class="pista"><b>Rosa, lavandera:</b> "El trapiche de don Aurelio represó el brazo del río hace un mes. Desde entonces el agua baja distinta más abajo del vado."</div>
+  <div class="pista"><b>Curandera del pueblo:</b> "A la familia de Efraín le tienen envidia desde que él heredó el mejor tramo de pesca del río, el que nadie más puede tocar. La envidia también pesca redes vacías, m'hijo — no todo es cosa del agua."</div>
+  <div class="pista"><b>La piedra del vado:</b> sigue alimentada — tabaco y aguardiente frescos. Alguien en el pueblo todavía cumple la costumbre con el dueño del río.</div>
+  <p>Es el crepúsculo. Antes de cruzar el vado, te detienes un momento a pensar en lo que ya sabes.</p>
+  <p><b>¿Qué crees que está pasando, en una frase? (no hay respuesta incorrecta todavía — es solo tu primera impresión)</b></p>
+  <textarea id="hipotesis-inicial" placeholder="Escribe tu primera impresión..."></textarea>
+  <button onclick="registrarHipotesisInicial()" style="margin-top:12px;">Cruzar el vado</button>
 </div>
 
 <div id="pantalla-aproximacion" class="oculto">
   <h2>La aproximación</h2>
-  <p class="paso-etiqueta">Paso 1 de 4</p>
-  <p>El agua del pozo se encrespa sin viento. Algo te mira desde el fondo.</p>
-  <button onclick="elegir('aproximacion','respeto')">Te acercas con respeto, ofrenda en mano</button>
-  <button onclick="elegir('aproximacion','hostil')">Te acercas con agua bendita y una advertencia</button>
+  <p class="paso-etiqueta">Paso 1 de 3</p>
+  <p>El agua del pozo se encrespa sin viento. Algo te mira desde el fondo. ¿Cómo te presentas?</p>
+  <button onclick="elegir('aproximacion','dominante')">"Vengo a exigir que sueltes el río de una vez."</button>
+  <button onclick="elegir('aproximacion','negociadora')">"Vengo a entender qué fue lo que se rompió."</button>
+  <button onclick="elegir('aproximacion','ritual')">"Traigo algo conmigo, porque sé que aquí se debe algo."</button>
 </div>
 
 <div id="pantalla-transgresion" class="oculto">
   <h2>Nombrar la transgresión</h2>
-  <p class="paso-etiqueta">Paso 2 de 4</p>
-  <p>Una voz de tabaco y musgo pregunta: <i>"¿Y bien? ¿Qué se rompió?"</i></p>
-  <button onclick="elegir('transgresion','represo')">Alguien represó el agua en el trapiche</button>
-  <button onclick="elegir('transgresion','pesco')">Alguien pescó en tiempo o lugar vedado</button>
-  <button onclick="elegir('transgresion','creciente')">No hay transgresión — es solo la creciente</button>
-  <button onclick="elegir('transgresion','bruja')">Es un maleficio de una bruja del pueblo</button>
+  <p class="paso-etiqueta">Paso 2 de 3</p>
+  <p>El Mohán se acomoda en la piedra, sin prisa. <i>"Vienes a pedirme que arregle algo. Pero todavía no me has dicho qué fue lo que se rompió."</i></p>
+  <p>¿Cómo respondes?</p>
+  <button onclick="elegir('transgresion','represo')">"El río no está enfermo. Alguien le cambió el camino."</button>
+  <button onclick="elegir('transgresion','pesco')">"Alguien sacó del agua más de lo que le tocaba."</button>
+  <button onclick="elegir('transgresion','creciente')">"No hay deuda aquí. Solo mala suerte del clima."</button>
+  <button onclick="elegir('transgresion','envidia')">"Esto no es cosa suya. Es envidia de la gente, no del río."</button>
 </div>
 
 <div id="pantalla-ofrenda" class="oculto">
-  <h2>La ofrenda compuesta</h2>
-  <p class="paso-etiqueta">Paso 3 de 4</p>
-  <p><b>Tributo base</b> (siempre presente): tabaco mascado y un chorro de aguardiente sobre la piedra.</p>
+  <h2>Preparar el encuentro</h2>
+  <p class="paso-etiqueta">Paso 3 de 3</p>
+  <p><i>"Bien"</i>, dice el Mohán. <i>"Entonces muéstreme qué trae, y qué piensa hacer con lo que me debe."</i></p>
+  <p><b>¿Qué llevas contigo?</b></p>
+  <div class="grupo-llevas">
+    <button onclick="elegir('llevas','tabaco', this)">Tabaco mascado y un chorro de aguardiente, reunidos en el pueblo</button>
+    <button onclick="elegir('llevas','oro', this)">Unas monedas de plata, por si hay que pagar bien</button>
+    <button onclick="elegir('llevas','rosario', this)">Un rosario bendecido, por si hay que protegerte</button>
+  </div>
+  <p id="reaccion-llevas" class="pista oculto"></p>
 
-  <p><b>Restitución</b> — ¿qué reparas?</p>
-  <button onclick="elegir('restitucion','abrir_canal')">Convencer a don Aurelio de abrir el canal represado</button>
-  <button onclick="elegir('restitucion','renunciar_pesca')">Prometer no volver a pescar en el pozo hondo</button>
-  <button onclick="elegir('restitucion','limpiar_pozo')">Limpiar la basura acumulada en el pozo</button>
+  <p style="margin-top:24px;"><b>¿Qué haces con el problema del río?</b></p>
+  <div class="grupo-haces">
+    <button onclick="elegir('haces','aurelio_canal', this)">Vas con don Aurelio hasta el canal y lo convences de abrirlo con sus propias manos</button>
+    <button onclick="elegir('haces','corregidor_canal', this)">Le pides al corregidor que ordene abrir el canal por decreto</button>
+    <button onclick="elegir('haces','jugador_canal', this)">Abres tú mismo una brecha en la represa esa misma noche</button>
+    <button onclick="elegir('haces','renuncia_pesca', this)">Prometes que nadie volverá a pescar en el pozo hondo</button>
+  </div>
+  <p id="reaccion-haces" class="pista oculto"></p>
 
-  <p><b>Portador</b> — ¿quién lo ofrece?</p>
-  <button onclick="elegir('portador','aurelio')">Don Aurelio, el que represó el agua</button>
-  <button onclick="elegir('portador','corregidor')">El corregidor, en nombre del pueblo</button>
-  <button onclick="elegir('portador','jugador')">Tú mismo, el investigador</button>
+  <button id="btn-continuar-ofrenda" onclick="irA('tentacion')" disabled style="margin-top:24px; opacity:0.4; cursor:not-allowed;">Continuar (elige las dos cosas primero)</button>
 </div>
 
 <div id="pantalla-tentacion" class="oculto">
   <h2>El contra-ofrecimiento</h2>
-  <p class="paso-etiqueta">Paso 4 de 4</p>
   <p><i>"Espera"</i>, dice el Mohán antes de sellar nada. <i>"Puedo darte algo ahora mismo, sin tanto trámite."</i></p>
   <div class="pista">"Los pescadores tendrán comida hoy. El río seguirá represado, pero nadie pasará hambre esta semana."</div>
   <button onclick="elegir('tentacion','aceptar')">Aceptar — que coman esta semana</button>
@@ -92,7 +104,7 @@
 
 <div id="pantalla-prediccion" class="oculto">
   <h2>Antes de sellar</h2>
-  <p>Con la ofrenda ya reunida, una última duda te detiene un momento.</p>
+  <p>Con todo ya decidido, una última duda te detiene un momento.</p>
   <p><b>¿Crees que esto va a funcionar? ¿Por qué?</b></p>
   <textarea id="prediccion-texto" placeholder="Escribe tu respuesta antes de continuar..."></textarea>
   <button onclick="confirmarOfrenda()" style="margin-top:12px;">Presentar la ofrenda</button>
@@ -116,9 +128,9 @@
 <script>
   const sesion = {
     inicio: Date.now(),
-    decisiones: [],       // { paso, valor, timestamp_ms_desde_inicio }
-    cambiosDeSeleccion: {}, // paso -> cuántas veces se cambió antes de confirmar
-    pistasRevisadas: 0,
+    hipotesisInicial: "",
+    decisiones: [],          // { paso, valor, t_ms }
+    cambiosDeSeleccion: {},  // paso -> cuántas veces se cambió antes de avanzar
     prediccion: "",
     reflexion: ""
   };
@@ -133,21 +145,56 @@
     window.scrollTo(0, 0);
   }
 
-  // Cuenta como "revisó pistas otra vez" si vuelve a la pantalla de pistas
-  document.getElementById('pantalla-pistas').addEventListener('click', () => {}, true);
+  function registrarHipotesisInicial() {
+    sesion.hipotesisInicial = document.getElementById('hipotesis-inicial').value;
+    sesion.decisiones.push({ paso: 'hipotesis_inicial_registrada', valor: sesion.hipotesisInicial.length > 0 ? 'con_texto' : 'vacia', t_ms: ahora() });
+    irA('aproximacion');
+  }
 
-  function elegir(paso, valor) {
+  // Microfeedback diegético del Mohán — reacciona a lo elegido sin confirmar
+  // ni negar si es correcto. Es información de personaje, no un veredicto.
+  const REACCIONES = {
+    llevas: {
+      tabaco: "\"Eso ya me lo esperaba de usted.\"",
+      oro: "\"Muchos traen cosas brillantes cuando no saben bien qué es lo que deben.\"",
+      rosario: "El agua se aquieta de golpe. \"Baje eso. Aquí no se reza, se negocia.\""
+    },
+    haces: {
+      aurelio_canal: "\"Ese nombre sí me suena a quien tiene cuentas conmigo.\"",
+      corregidor_canal: "\"El corregidor no represó nada. ¿Por qué habla él y no quien lo hizo?\"",
+      jugador_canal: "\"Usted no tiene cuentas conmigo por esa represa, que yo sepa.\"",
+      renuncia_pesca: "El Mohán ladea la cabeza. \"Eso no es lo que está roto.\""
+    }
+  };
+
+  function elegir(paso, valor, btnEl) {
     if (seleccionesActuales[paso] !== undefined && seleccionesActuales[paso] !== valor) {
       sesion.cambiosDeSeleccion[paso] = (sesion.cambiosDeSeleccion[paso] || 0) + 1;
     }
     seleccionesActuales[paso] = valor;
     sesion.decisiones.push({ paso, valor, t_ms: ahora() });
 
-    // Restitución y portador se completan juntos antes de avanzar
+    if (btnEl) {
+      // Resalta la opción elegida y quita el resaltado de sus hermanas en el mismo grupo
+      Array.from(btnEl.parentElement.children).forEach(b => b.classList.remove('selected'));
+      btnEl.classList.add('selected');
+    }
+
     if (paso === 'aproximacion') irA('transgresion');
     else if (paso === 'transgresion') irA('ofrenda');
-    else if (paso === 'restitucion' || paso === 'portador') {
-      if (seleccionesActuales.restitucion && seleccionesActuales.portador) irA('tentacion');
+    else if (paso === 'llevas' || paso === 'haces') {
+      const reaccionEl = document.getElementById('reaccion-' + paso);
+      if (reaccionEl && REACCIONES[paso] && REACCIONES[paso][valor]) {
+        reaccionEl.textContent = REACCIONES[paso][valor];
+        reaccionEl.classList.remove('oculto');
+      }
+      const boton = document.getElementById('btn-continuar-ofrenda');
+      if (seleccionesActuales.llevas && seleccionesActuales.haces) {
+        boton.disabled = false;
+        boton.style.opacity = '1';
+        boton.style.cursor = 'pointer';
+        boton.textContent = 'Continuar';
+      }
     } else if (paso === 'tentacion') irA('prediccion');
   }
 
@@ -156,23 +203,37 @@
     sesion.decisiones.push({ paso: 'prediccion_registrada', valor: sesion.prediccion.length > 0 ? 'con_texto' : 'vacia', t_ms: ahora() });
 
     const s = seleccionesActuales;
+    // Clasificación interna — el jugador nunca vio estas categorías en pantalla:
+    // llevas: tabaco (tributo correcto) | oro (naturaleza equivocada) | rosario (ofensivo, prohibido)
+    // haces: aurelio_canal (restitución correcta + portador correcto)
+    //        corregidor_canal / jugador_canal (restitución correcta + portador equivocado)
+    //        renuncia_pesca (restitución equivocada)
     let resultado;
+    const tonoDominante = s.aproximacion === 'dominante';
 
-    if (s.tentacion === 'aceptar') {
+    if (s.llevas === 'rosario') {
+      resultado = "Apenas lo sacas, el agua del pozo se retira como si la hubieras quemado. \"Eso no se trae aquí\", dice algo que ya no suena a negociación. "
+        + "El pozo queda en silencio. Sea lo que sea que traías para ofrecer, ya no importa — te fuiste sin trato.";
+    } else if (s.tentacion === 'aceptar') {
       resultado = "Aceptas. Esta noche hay pescado en todas las mesas, y el pueblo te lo agradece en voz alta. "
-        + "Pero el canal sigue represado bajo el agua quieta, y algo en el silencio del Mohán te dice que esta cuenta no está cerrada — solo aplazada.";
+        + "Pero el canal represado sigue igual bajo el agua quieta, y algo en el silencio del Mohán te dice que esta cuenta no está cerrada — solo aplazada.";
     } else if (s.transgresion !== 'represo') {
-      resultado = "Presentas tu ofrenda con convicción. El Mohán la recibe sin decir palabra, y el pozo vuelve a quedar en calma. "
-        + "Pasan los días y las redes de Efraín siguen llenas, las de los demás siguen vacías. Nada cambió realmente.";
-    } else if (s.restitucion === 'abrir_canal' && s.portador === 'aurelio') {
-      resultado = "Don Aurelio abre el canal con sus propias manos, refunfuñando. El agua vuelve a moverse por su cauce viejo. "
+      resultado = (tonoDominante
+        ? "Presentas tu exigencia. El Mohán te escucha sin interrumpir, y acepta lo que traes sin decir palabra. "
+        : "Presentas tu ofrenda con convicción. El Mohán la recibe en silencio. ")
+        + "El pozo vuelve a quedar en calma. Pasan los días y las redes de Efraín siguen llenas, las de los demás siguen vacías. Nada cambió realmente.";
+    } else if (s.llevas === 'oro') {
+      resultado = "El Mohán mira las monedas con algo parecido a la curiosidad, y las toma. Pero desde ese día, cada vez que alguien cruza el vado, "
+        + "algo parece esperar más plata — fijaste un precio nuevo sin darte cuenta, y ahora te lo van a cobrar siempre.";
+    } else if (s.haces === 'aurelio_canal') {
+      resultado = "Don Aurelio abre el canal con sus propias manos, refunfuñando" + (tonoDominante ? " y mirándote con desconfianza" : "") + ". El agua vuelve a moverse por su cauce viejo. "
         + "Esa misma noche, las redes que estaban vacías amanecen llenas. El vado, dicen los viejos, se siente distinto al cruzarlo — más liviano.";
-    } else if (s.restitucion === 'abrir_canal' && s.portador !== 'aurelio') {
-      resultado = "Ofreces la restitución correcta, pero de mano equivocada. El Mohán la mira sin tocarla. "
-        + "\"Eso no me lo debe usted\", parece decir el silencio del agua. La represa sigue en pie.";
+    } else if (s.haces === 'corregidor_canal' || s.haces === 'jugador_canal') {
+      resultado = "El canal se abre, y el agua vuelve a moverse. \"Entendió qué se rompió\", dice el Mohán, \"pero no de la mano de quien debía repararlo.\" "
+        + "No fue suficiente — pero se nota que entendiste qué había que arreglar, no solo que había que traer algo.";
     } else {
-      resultado = "El agua vuelve a moverse, pero el río sigue sin reconocerte del todo. Algo queda a medias — "
-        + "no sabes bien qué, hasta que vuelvas a necesitar cruzar el vado.";
+      resultado = "Prometes lo que ofreces, pero el canal represado sigue exactamente igual bajo el agua quieta. "
+        + "El Mohán acepta tu palabra sin comprometerse a nada — no era eso lo que había que reparar.";
     }
 
     document.getElementById('texto-resultado').textContent = resultado;
@@ -185,10 +246,12 @@
 
     const resumen = {
       duracion_total_seg: Math.round(sesion.fin_ms / 1000),
+      hipotesis_inicial: sesion.hipotesisInicial,
       orden_de_decisiones: sesion.decisiones,
       cambios_de_seleccion_antes_de_confirmar: sesion.cambiosDeSeleccion,
-      prediccion_previa: sesion.prediccion,
-      reflexion_posterior: sesion.reflexion
+      prediccion_previa_a_confirmar: sesion.prediccion,
+      reflexion_posterior_al_resultado: sesion.reflexion,
+      nota: "Comparar hipotesis_inicial vs. transgresion elegida vs. prediccion vs. reflexion final muestra si hubo evolución real de teoría o solo aprendizaje por respuesta."
     };
 
     document.getElementById('log').textContent =
