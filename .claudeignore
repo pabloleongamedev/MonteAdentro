@@ -1,8 +1,0 @@
-Library/
-Temp/
-Obj/
-Logs/
-Build/
-*.csproj
-*.sln
-.vs/

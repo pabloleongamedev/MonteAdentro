@@ -1,0 +1,221 @@
+/*
+  PROTOTYPE - NOT FOR PRODUCTION
+  Question: ¿Puede UI Toolkit presentar pistas + hipótesis + constructor de ofrenda de forma clara para el futuro Cuaderno del Investigador?
+  Date: 2026-07-20
+
+  Paleta tomada de prototypes/mohan-confrontacion-concept/prototype.html:
+  fondo #1b1712, ámbar #c98a3c, texto #e8ddc8. No es arte final -- estética
+  "cuaderno de investigador" mínima para leer el prototipo con claridad.
+*/
+
+.scroll-root {
+    flex-grow: 1;
+    background-color: rgb(27, 23, 18);
+}
+
+.cuaderno-root {
+    padding: 28px 32px 60px 32px;
+    max-width: 760px;
+}
+
+.cabecera {
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(74, 64, 48);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+}
+
+.titulo {
+    color: rgb(201, 138, 60);
+    font-size: 26px;
+    -unity-font-style: bold;
+}
+
+.subtitulo {
+    color: rgb(138, 126, 95);
+    font-size: 13px;
+    -unity-font-style: italic;
+    margin-top: 4px;
+}
+
+.pantalla {
+    display: flex;
+}
+
+.pantalla.oculto {
+    display: none;
+}
+
+.seccion-titulo {
+    color: rgb(201, 138, 60);
+    font-size: 19px;
+    -unity-font-style: bold;
+    margin-top: 14px;
+    margin-bottom: 10px;
+}
+
+.paso-etiqueta {
+    color: rgb(138, 126, 95);
+    font-size: 12px;
+    -unity-font-style: bold;
+    margin-bottom: 8px;
+}
+
+.parrafo {
+    color: rgb(232, 221, 200);
+    font-size: 14px;
+    white-space: normal;
+    margin-bottom: 10px;
+}
+
+.pregunta {
+    color: rgb(232, 221, 200);
+    font-size: 14px;
+    -unity-font-style: bold;
+    white-space: normal;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+.dialogo-mohan {
+    color: rgb(220, 205, 180);
+    font-size: 14px;
+    -unity-font-style: italic;
+    white-space: normal;
+    margin-bottom: 10px;
+}
+
+.container-pistas {
+    margin-bottom: 12px;
+}
+
+.pista {
+    background-color: rgb(42, 36, 25);
+    border-left-width: 3px;
+    border-left-color: rgb(107, 90, 58);
+    padding: 10px 14px 10px 14px;
+    margin-bottom: 8px;
+    white-space: normal;
+    color: rgb(232, 221, 200);
+    font-size: 13px;
+}
+
+.grupo-opciones {
+    margin-bottom: 4px;
+}
+
+.separador {
+    height: 1px;
+    background-color: rgb(74, 64, 48);
+    margin-top: 18px;
+    margin-bottom: 14px;
+}
+
+.reaccion-mohan {
+    background-color: rgb(42, 36, 25);
+    border-left-width: 3px;
+    border-left-color: rgb(107, 90, 58);
+    padding: 8px 12px 8px 12px;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    -unity-font-style: italic;
+    color: rgb(217, 184, 119);
+    font-size: 13px;
+    white-space: normal;
+}
+
+.reaccion-mohan.oculto {
+    display: none;
+}
+
+.opcion-boton {
+    background-color: rgb(46, 42, 32);
+    color: rgb(232, 221, 200);
+    border-width: 1px;
+    border-color: rgb(74, 64, 48);
+    padding: 12px 16px 12px 16px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    white-space: normal;
+    -unity-text-align: middle-left;
+}
+
+.opcion-boton:hover {
+    background-color: rgb(58, 52, 38);
+    border-color: rgb(201, 138, 60);
+}
+
+.opcion-boton.seleccionado {
+    background-color: rgb(58, 48, 32);
+    border-color: rgb(201, 138, 60);
+}
+
+.boton-principal {
+    background-color: rgb(46, 42, 32);
+    color: rgb(232, 221, 200);
+    border-width: 1px;
+    border-color: rgb(74, 64, 48);
+    padding: 12px 16px 12px 16px;
+    margin-top: 14px;
+    font-size: 14px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.boton-principal:hover {
+    background-color: rgb(58, 52, 38);
+    border-color: rgb(201, 138, 60);
+}
+
+.boton-principal:disabled {
+    opacity: 0.4;
+}
+
+.campo-texto {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    min-height: 70px;
+    background-color: rgb(42, 36, 25);
+    color: rgb(232, 221, 200);
+    border-width: 1px;
+    border-color: rgb(74, 64, 48);
+    font-size: 13px;
+    white-space: normal;
+}
+
+.campo-texto > .unity-text-element {
+    color: rgb(232, 221, 200);
+}
+
+.campo-texto.placeholder-activo > .unity-text-element {
+    color: rgb(122, 114, 99);
+}
+
+.resultado-caja {
+    background-color: rgb(36, 31, 40);
+    border-left-width: 3px;
+    border-left-color: rgb(138, 90, 122);
+    padding: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    -unity-font-style: italic;
+    color: rgb(232, 221, 200);
+    font-size: 14px;
+    white-space: normal;
+}
+
+.log-caja {
+    background-color: rgb(15, 13, 10);
+    color: rgb(122, 114, 99);
+    font-size: 11px;
+    margin-top: 20px;
+    min-height: 220px;
+    border-width: 1px;
+    border-color: rgb(74, 64, 48);
+    white-space: normal;
+}
+
+.log-caja > .unity-text-element {
+    color: rgb(122, 114, 99);
+    font-size: 11px;
+}

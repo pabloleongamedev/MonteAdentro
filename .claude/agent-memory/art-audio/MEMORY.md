@@ -1,2 +1,0 @@
-- [Art Bible "what not how" rule](project_art-bible-editorial-rule.md) — no engine/shader/mechanic details in art docs, meaning-only.
-- [Monte Adentro project context](project_monte-adentro-project-context.md) — game premise + Art Bible section approval snapshot.

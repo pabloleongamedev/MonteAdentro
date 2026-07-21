@@ -1,0 +1,98 @@
+<!--
+  PROTOTYPE - NOT FOR PRODUCTION
+  Question: ¿Puede UI Toolkit presentar pistas + hipótesis + constructor de ofrenda de forma clara para el futuro Cuaderno del Investigador?
+  Date: 2026-07-20
+
+  Este UXML es solo esqueleto de layout (contenedores, campos, botones vacíos).
+  Todo el texto (pistas, diálogos, reacciones, resultados) lo asigna
+  MohanCuadernoPrototypeController.cs en tiempo de ejecución, copiado literal
+  desde prototypes/mohan-confrontacion-concept/prototype.html. Esto evita
+  tener que escapar comillas y guiones largos dentro de atributos XML.
+-->
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" editor-extension-mode="False">
+    <Style src="MohanCuaderno.uss" />
+    <ui:ScrollView name="scroll-root" class="scroll-root">
+        <ui:VisualElement name="cuaderno-root" class="cuaderno-root">
+
+            <ui:VisualElement name="cabecera" class="cabecera">
+                <ui:Label name="label-titulo-caso" class="titulo" />
+                <ui:Label name="label-subtitulo-caso" class="subtitulo" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="pantallas-container" class="pantallas-container">
+
+                <ui:VisualElement name="pantalla-pistas" class="pantalla">
+                    <ui:Label name="label-pistas-titulo" class="seccion-titulo" />
+                    <ui:VisualElement name="container-pistas" class="container-pistas" />
+                    <ui:Label name="label-pistas-intro" class="parrafo" />
+                    <ui:Label name="label-pistas-pregunta" class="pregunta" />
+                    <ui:TextField name="campo-hipotesis" class="campo-texto" multiline="true" />
+                    <ui:Button name="btn-cruzar-vado" class="boton-principal" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="pantalla-aproximacion" class="pantalla oculto">
+                    <ui:Label name="label-aprox-titulo" class="seccion-titulo" />
+                    <ui:Label name="label-aprox-paso" class="paso-etiqueta" />
+                    <ui:Label name="label-aprox-texto" class="parrafo" />
+                    <ui:VisualElement name="container-aproximacion" class="grupo-opciones" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="pantalla-transgresion" class="pantalla oculto">
+                    <ui:Label name="label-trans-titulo" class="seccion-titulo" />
+                    <ui:Label name="label-trans-paso" class="paso-etiqueta" />
+                    <ui:Label name="label-trans-dialogo" class="dialogo-mohan" />
+                    <ui:Label name="label-trans-pregunta" class="pregunta" />
+                    <ui:VisualElement name="container-transgresion" class="grupo-opciones" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="pantalla-ofrenda" class="pantalla oculto">
+                    <ui:Label name="label-ofrenda-titulo" class="seccion-titulo" />
+                    <ui:Label name="label-ofrenda-paso" class="paso-etiqueta" />
+                    <ui:Label name="label-ofrenda-dialogo" class="dialogo-mohan" />
+
+                    <ui:Label name="label-llevas-pregunta" class="pregunta" />
+                    <ui:VisualElement name="container-llevas" class="grupo-opciones" />
+                    <ui:Label name="label-reaccion-llevas" class="reaccion-mohan oculto" />
+
+                    <ui:VisualElement name="separador-ofrenda" class="separador" />
+
+                    <ui:Label name="label-haces-pregunta" class="pregunta" />
+                    <ui:VisualElement name="container-haces" class="grupo-opciones" />
+                    <ui:Label name="label-reaccion-haces" class="reaccion-mohan oculto" />
+
+                    <ui:Button name="btn-continuar-ofrenda" class="boton-principal" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="pantalla-tentacion" class="pantalla oculto">
+                    <ui:Label name="label-tent-titulo" class="seccion-titulo" />
+                    <ui:Label name="label-tent-dialogo" class="dialogo-mohan" />
+                    <ui:Label name="label-tent-oferta" class="pista" />
+                    <ui:VisualElement name="container-tentacion" class="grupo-opciones" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="pantalla-prediccion" class="pantalla oculto">
+                    <ui:Label name="label-pred-titulo" class="seccion-titulo" />
+                    <ui:Label name="label-pred-intro" class="parrafo" />
+                    <ui:Label name="label-pred-pregunta" class="pregunta" />
+                    <ui:TextField name="campo-prediccion" class="campo-texto" multiline="true" />
+                    <ui:Button name="btn-presentar-ofrenda" class="boton-principal" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="pantalla-resultado" class="pantalla oculto">
+                    <ui:Label name="label-result-titulo" class="seccion-titulo" />
+                    <ui:Label name="label-texto-resultado" class="resultado-caja" />
+                    <ui:Label name="label-reflexion-pregunta" class="pregunta" />
+                    <ui:TextField name="campo-reflexion" class="campo-texto" multiline="true" />
+                    <ui:Button name="btn-terminar" class="boton-principal" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="pantalla-fin" class="pantalla oculto">
+                    <ui:Label name="label-fin-titulo" class="seccion-titulo" />
+                    <ui:Label name="label-fin-texto" class="parrafo" />
+                    <ui:TextField name="campo-log" class="log-caja" multiline="true" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ScrollView>
+</ui:UXML>
