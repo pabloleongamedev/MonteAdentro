@@ -8,6 +8,16 @@ removed; the original director/lead/specialist hierarchy was consolidated into
 one agent per domain since a solo dev is the sole decision-maker across all of
 those original roles.
 
+## Idioma de interacción
+
+Todas las interacciones con el usuario (Pablo) deben ser en **español** — narración,
+preguntas, resúmenes, opciones de `AskUserQuestion`, mensajes de commit explicados,
+todo. Esto aplica a la sesión principal y a todos los subagentes (`architect`,
+`game-designer`, etc.), ya que todos operan sobre este mismo proyecto. El contenido
+técnico que deba quedar en inglés por convención (nombres de archivo, identificadores
+de código, terminología de Unity/C#) puede mantenerse en inglés dentro de una
+respuesta en español.
+
 ## Technology Stack
 
 - **Engine**: Unity

@@ -106,7 +106,26 @@ items: []
 #   output_range[min, max], added
 # Optional: expression (the actual formula), notes
 
-formulas: []
+formulas:
+  - name: fase_actual
+    status: active
+    source: design/gdd/reloj-real.md
+    referenced_by:
+      - design/gdd/reloj-real.md
+      - design/entities/mohan.md          # ventana de manifestación: crepúsculo/noche
+      - design/entities/duende.md         # ventana de manifestación: medianoche/madrugada
+      - design/gdd/sistema-de-casos.md    # franjas horarias de evidencia y manifestación
+    variables:
+      - t_juego
+      - T_ciclo
+      - inicio(P)
+    output_range: "enum {Mediodía, Tarde, Crepúsculo, Noche, Amanecer}"
+    expression: "P tal que inicio(P) ≤ (t_juego mod T_ciclo) < inicio(siguiente(P))"
+    notes: "Única fase pública que expone Reloj Real. Cada mito y cada sistema
+      consumidor define su propia ventana en términos de estos 5 nombres —
+      Reloj Real no conoce esas ventanas (Core Rule 5)."
+    added: 2026-07-20
+    revised: ""
 
 # Example:
 #

@@ -17,10 +17,10 @@ Monte Adentro es un juego de deducción narrativa de un solo jugador: el bucle o
 
 | # | System Name | Category | Priority | Status | Design Doc | Depends On |
 |---|-------------|----------|----------|--------|------------|------------|
-| 1 | Reloj Real | Core | Vertical Slice | Not Started | — | — |
+| 1 | Reloj Real | Core | Vertical Slice | Designed | design/gdd/reloj-real.md | — |
 | 2 | Sistema de Exploración del Hub | Core | Vertical Slice | Not Started | — | — |
 | 3 | Sistema de Estado del Mundo + Guardado/Carga (inferred) | Persistence | Vertical Slice (versión mínima) | Not Started | — | — |
-| 4 | Sistema de Entidades Míticas | Core | Vertical Slice | Not Started | — | — |
+| 4 | Sistema de Entidades Míticas | Core | Vertical Slice | Not Started | — | Reloj Real |
 | 5 | Sistema de Testimonios / Diálogo (inferred) | Narrative | Vertical Slice | Not Started | — | Sistema de Exploración del Hub, Sistema de Estado del Mundo |
 | 6 | Sistema de Casos | Gameplay | Vertical Slice | Designed (pendiente de revisión) | design/gdd/sistema-de-casos.md | Sistema de Testimonios/Diálogo, Sistema de Estado del Mundo, Sistema de Entidades Míticas, Reloj Real |
 | 7 | Sistema de Confrontación de Ingenio | Gameplay | Vertical Slice | Not Started | — | Sistema de Casos, Sistema de Entidades Míticas, Reloj Real, Sistema de Exploración del Hub |
@@ -56,7 +56,7 @@ Monte Adentro es un juego de deducción narrativa de un solo jugador: el bucle o
 
 ## Dependency Map
 
-### Foundation Layer (no dependencies)
+### Foundation Layer
 
 1. **Reloj Real** — columna vertebral temporal de todo el juego (Art Bible Sección 2); gobierna cuándo el Mohán "está" y la ventana nocturna del Duende.
 2. **Sistema de Exploración del Hub** — sin poder caminar el pueblo (`design/levels/pueblo-hub.md`) no hay nada que investigar.
@@ -120,11 +120,11 @@ Monte Adentro es un juego de deducción narrativa de un solo jugador: el bucle o
 | Metric | Count |
 |--------|-------|
 | Total systems identified | 9 |
-| Design docs started | 1 |
+| Design docs started | 2 |
 | Design docs reviewed | 0 |
 | Design docs approved | 0 |
 | MVP systems designed | 0/9 |
-| Vertical Slice systems designed | 1/8 |
+| Vertical Slice systems designed | 2/8 |
 
 ---
 
